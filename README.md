@@ -1,1 +1,1 @@
-# course-platform-codg6
+# Course-platform-codg6

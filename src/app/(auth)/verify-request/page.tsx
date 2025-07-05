@@ -6,19 +6,14 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/comp
 import { authClient } from "@/lib/auth-client";
 import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { use, useState, useTransition } from "react";
+import { use, useState, useTransition, Suspense } from "react";
 import { toast } from "sonner";
 
-export default function VerifyRequest() {
-
+function VerifyRequestContent() {
     const router = useRouter();
-
     const [otp, setOtp] = useState("");
-
     const [emailPending, startTransitionEmail] = useTransition();
-
     const isOtpCompleted = otp.length === 6;
-
     const params = useSearchParams();
     const email = params.get('email') as string;
 
@@ -81,4 +76,12 @@ export default function VerifyRequest() {
             </CardContent>
         </Card>
     )
+}
+
+export default function VerifyRequest() {
+    return (
+        <Suspense>
+            <VerifyRequestContent />
+        </Suspense>
+    );
 }
